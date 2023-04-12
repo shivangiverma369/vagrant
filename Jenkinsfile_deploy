@@ -54,6 +54,7 @@ pipeline {
           component = params.os_type
           sh "echo '${component}'"
           sh "./run.sh '${component}'"
+
         }
       }
     }

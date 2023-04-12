@@ -19,7 +19,8 @@ fi
 
 case "$COMPONENT" in
 ubuntu)
-    echo "hi this is test"
+    cd "/home/main/Desktop/vagrant"
+    vagrant up
     ;;
 redhat)
     echo "hi this is redhat"
