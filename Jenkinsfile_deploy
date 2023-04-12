@@ -50,8 +50,9 @@ pipeline {
       steps {
         script {
 
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.component_name
-          component = params.component_name
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
           sh "./run.sh '${component}'"
         }
       }
