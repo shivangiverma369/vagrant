@@ -7,19 +7,12 @@ pipeline {
   }
   parameters {
     choice(
-      name: 'component_name',
+      name: 'os_type',
       choices: [
-        'elastic',
-        'kibana',
-        'configurator',
-        'kafka',
-        'promethues',
-        'grafana',
-        'heartbeat',
-        'metricbeat'
-
+        'ubuntu',
+        'redhat'
       ],
-      description: 'Component to deploy.'
+      description: 'select os to create vm.'
     )
     gitParameter (
       name: 'deplrepo_revision',
@@ -32,7 +25,7 @@ pipeline {
     )
   }
   environment {
-    GIT_CREDENTIAL_ID = 'GIT-access-token'
+    GIT_CREDENTIAL_ID = 'GIT-access-token2'
   }
   stages {
     stage('Checkout repositories') {
@@ -47,7 +40,7 @@ pipeline {
           ],
           userRemoteConfigs: [[
             credentialsId: env.GIT_CREDENTIAL_ID,
-            url: 'https://github.com/taskiy/tass-tutorials'
+            url: 'https://github.com/ankursharma2725/jenkins-vagrant'
           ]]
         ])
         script {commitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')}

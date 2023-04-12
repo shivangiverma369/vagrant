@@ -18,6 +18,12 @@ fi
 
 
 case "$COMPONENT" in
+ubuntu)
+    echo "hi this is test"
+    ;;
+redhat)
+    echo "hi this is redhat"
+    ;;
 elastic)
     ansible-playbook -i environments/localhost/ --vault-password-file=~/.secrets/tass-ansible-vault deploy-elastic.yml --connection=local
     ;;
