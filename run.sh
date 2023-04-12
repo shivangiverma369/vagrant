@@ -20,7 +20,7 @@ fi
 case "$COMPONENT" in
 ubuntu)
     cd "/home/main/Desktop/vagrant"
-    vagrant up
+    sudo -u main vagrant up
     ;;
 redhat)
     echo "hi this is redhat"
