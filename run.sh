@@ -17,9 +17,10 @@ fi
 
 case "$COMPONENT" in
 ubuntu)
-    mkdir "/home/main/Desktop/vagrant"
-    cd "/home/main/Desktop/vagrant"
-    curl -o Vagrantfile https://raw.githubusercontent.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
+    mkdir -p "/home/main/Desktop/vagrant/ubuntu"
+    cd "/home/main/Desktop/vagrant/ubuntu"
+    curl -o Vagrantfile https://raw.githubusercontent.com/shivangiverma369/vagrant/main/ubuntu/Vagrantfile
+    # https://raw.githubusercontent.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
 #     curl -LJO https://github.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
 #     sudo -u main vagrant up
 #     chmod 777 Vagrantfile
@@ -30,10 +31,13 @@ ubuntu_clean-up)
     vagrant halt && vagrant destroy -f
     ;;
 redhat)
-    echo "hi this is redhat"
+    mkdir -p "/home/main/Desktop/vagrant/redhat"
+    cd "/home/main/Desktop/vagrant/ubuntu"
+    curl -o Vagrantfile https://raw.githubusercontent.com/shivangiverma369/vagrant/main/redhat/Vagrantfile
     ;;
 redhat_clean-up)
-    echo "hi this is redhat"
+    cd "/home/main/Desktop/vagrant/redhat"
+    vagrant halt && vagrant destroy -f
     ;;
 elastic)
     ansible-playbook -i environments/localhost/ --vault-password-file=~/.secrets/tass-ansible-vault deploy-elastic.yml --connection=local
