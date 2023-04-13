@@ -27,7 +27,7 @@ ubuntu)
     ;;
 ubuntu_clean-up)
     cd "/home/main/Desktop/vagrant"
-    vagrant halt && vagrant destroy
+    vagrant halt && vagrant destroy -y
     ;;
 redhat)
     echo "hi this is redhat"
