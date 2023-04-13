@@ -22,7 +22,9 @@ ubuntu)
     mkdir "/home/main/Desktop/vagrant"
     cd "/home/main/Desktop/vagrant"
     curl -LJO https://github.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
-    sudo -u main vagrant up
+#     sudo -u main vagrant up
+    chmod 777 Vagrantfile
+    vagrant up
     ;;
 redhat)
     echo "hi this is redhat"
