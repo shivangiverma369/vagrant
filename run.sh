@@ -21,9 +21,10 @@ case "$COMPONENT" in
 ubuntu)
     mkdir "/home/main/Desktop/vagrant"
     cd "/home/main/Desktop/vagrant"
-    curl -LJO https://github.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
+    curl -o Vagrantfile https://raw.githubusercontent.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
+#     curl -LJO https://github.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
 #     sudo -u main vagrant up
-    chmod 777 Vagrantfile
+#     chmod 777 Vagrantfile
     vagrant up
     ;;
 redhat)
