@@ -73,6 +73,21 @@ pipeline {
       }
     }
 
+    stage('Deploy virtual machine') {
+      when {
+        expression { return params.os_type == 'redhat' && params.deployment == 'deploy-vm' }
+      }  
+      steps {
+        script {
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
+          sh "./run.sh '${component}'"
+
+        }
+      }
+    }
+
     stage('Destroy virtual machine') {
       when {
         expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean-up' }
