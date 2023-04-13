@@ -32,7 +32,7 @@ ubuntu_clean-up)
     ;;
 redhat)
     mkdir -p "/home/main/Desktop/vagrant/redhat"
-    cd "/home/main/Desktop/vagrant/ubuntu"
+    cd "/home/main/Desktop/vagrant/redhat"
     curl -o Vagrantfile https://raw.githubusercontent.com/shivangiverma369/vagrant/main/redhat/Vagrantfile
     ;;
 redhat_clean-up)
