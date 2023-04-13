@@ -19,7 +19,9 @@ fi
 
 case "$COMPONENT" in
 ubuntu)
+    mkdir "/home/main/Desktop/vagrant"
     cd "/home/main/Desktop/vagrant"
+    curl -LJO https://github.com/ankursharma2725/jenkins-vagrant/main/Vagrantfile
     sudo -u main vagrant up
     ;;
 redhat)
