@@ -34,6 +34,7 @@ redhat)
     mkdir -p "/home/main/Desktop/vagrant/redhat"
     cd "/home/main/Desktop/vagrant/redhat"
     curl -o Vagrantfile https://raw.githubusercontent.com/shivangiverma369/vagrant/main/redhat/Vagrantfile
+    vagrant up
     ;;
 redhat_clean-up)
     cd "/home/main/Desktop/vagrant/redhat"
