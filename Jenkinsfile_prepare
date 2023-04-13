@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    label 'slave'
+  }
   options {
     ansiColor('xterm')
     timestamps ()
@@ -7,12 +9,22 @@ pipeline {
   }
   parameters {
     choice(
-      name: 'component_name',
+      name: 'deployment',
       choices: [
-        'donwload images',
-        'clean up'
+        'deploy-vm',
+        'clean-up'
       ],
-      description: 'Component to deploy.'
+      description: 'vm to deploy or destroy.'
+    )
+    choice(
+      name: 'os_type',
+      choices: [
+        'ubuntu',
+        'ubuntu_clean-up',
+        'redhat_clean-up'
+        'redhat'
+      ],
+      description: 'select os to create vm.'
     )
     gitParameter (
       name: 'deplrepo_revision',
@@ -25,7 +37,7 @@ pipeline {
     )
   }
   environment {
-    GIT_CREDENTIAL_ID = 'GIT-access-token'
+    GIT_CREDENTIAL_ID = 'GIT-access-token2'
   }
   stages {
     stage('Checkout repositories') {
@@ -40,22 +52,42 @@ pipeline {
           ],
           userRemoteConfigs: [[
             credentialsId: env.GIT_CREDENTIAL_ID,
-            url: 'https://github.com/taskiy/tass-tutorials'
+            url: 'https://github.com/ankursharma2725/jenkins-vagrant'
           ]]
         ])
         script {commitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')}
       }
     }
-    stage('Deploy -> Run Specific Playbook') {
+    stage('Deploy virtual machine') {
+      when {
+        expression { return params.os_type == 'ubuntu' && params.deployment == 'deploy-vm' }
+      }  
       steps {
         script {
-
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.component_name
-          component = params.component_name
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
           sh "./run.sh '${component}'"
+
         }
       }
     }
+
+    stage('Destroy virtual machine') {
+      when {
+        expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean up' }
+      }  
+      steps {
+        script {
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
+          sh "./run.sh '${component}'"
+
+        }
+      }
+    }
+
   }
   post {
     success {

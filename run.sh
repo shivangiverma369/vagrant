@@ -15,8 +15,6 @@ if [[ -z "$COMPONENT" ]]; then
     exit 1
 fi
 
-
-
 case "$COMPONENT" in
 ubuntu)
     mkdir "/home/main/Desktop/vagrant"
@@ -27,7 +25,14 @@ ubuntu)
 #     chmod 777 Vagrantfile
     vagrant up
     ;;
+ubuntu_clean-up)
+    cd "/home/main/Desktop/vagrant"
+    vagrant halt && vagrant destroy
+    ;;
 redhat)
+    echo "hi this is redhat"
+    ;;
+redhat_clean-up)
     echo "hi this is redhat"
     ;;
 elastic)
