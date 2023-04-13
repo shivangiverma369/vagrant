@@ -21,7 +21,7 @@ pipeline {
       choices: [
         'ubuntu',
         'ubuntu_clean-up',
-        'redhat_clean-up'
+        'redhat_clean-up',
         'redhat'
       ],
       description: 'select os to create vm.'
