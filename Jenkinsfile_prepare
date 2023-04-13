@@ -75,7 +75,7 @@ pipeline {
 
     stage('Destroy virtual machine') {
       when {
-        expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean up' }
+        expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean-up' }
       }  
       steps {
         script {
