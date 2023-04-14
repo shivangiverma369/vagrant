@@ -13,6 +13,7 @@ pipeline {
       choices: [
         'deploy-vm',
         'clean-up'
+        'reset-vm'
       ],
       description: 'vm to deploy or destroy.'
     )
@@ -105,6 +106,20 @@ pipeline {
     stage('Destroy redhat virtual machine') {
       when {
         expression { return params.os_type == 'redhat_clean-up' && params.deployment == 'clean-up' }
+      }  
+      steps {
+        script {
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
+          sh "./run.sh '${component}'"
+
+        }
+      }
+    }
+    stage('reset virtual machine') {
+      when {
+        expression { return params.deployment == 'reset-vm'  }
       }  
       steps {
         script {

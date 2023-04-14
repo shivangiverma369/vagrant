@@ -40,8 +40,13 @@ redhat_clean-up)
     cd "/home/main/Desktop/vagrant/redhat"
     vagrant halt && vagrant destroy -f
     ;;
-elastic)
-    ansible-playbook -i environments/localhost/ --vault-password-file=~/.secrets/tass-ansible-vault deploy-elastic.yml --connection=local
+reset-vm)
+    mkdir "home/main/Desktop/vagrant/vagrant-reset"
+    cd "/home/main/Desktop/vagrant/vagrant-reset"
+    curl -o Vagrantfile https://raw.githubusercontent.com/shivangiverma369/vagrant/main/redhat/Vagrantfile
+    vagrant up --vagrantfile vagrant-reset
+
+
     ;;
 kibana)
     ansible-playbook -i environments/localhost/ --vault-password-file=~/.secrets/tass-ansible-vault deploy-kibana.yml --connection=local
