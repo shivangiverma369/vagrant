@@ -88,9 +88,23 @@ pipeline {
       }
     }
 
-    stage('Destroy virtual machine') {
+    stage('Destroy ubuntu virtual machine') {
       when {
         expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean-up' }
+      }  
+      steps {
+        script {
+          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+          component = params.os_type
+          sh "echo '${component}'"
+          sh "./run.sh '${component}'"
+
+        }
+      }
+    }
+    stage('Destroy redhat virtual machine') {
+      when {
+        expression { return params.os_type == 'redhat_clean-up' && params.deployment == 'clean-up' }
       }  
       steps {
         script {
