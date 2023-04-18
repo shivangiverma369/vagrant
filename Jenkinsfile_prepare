@@ -12,7 +12,7 @@ pipeline {
       name: 'deployment',
       choices: [
         'deploy-vm',
-        'clean-up'
+        'clean-up',
         'reset-vm'
       ],
       description: 'vm to deploy or destroy.'
