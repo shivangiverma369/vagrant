@@ -77,51 +77,37 @@ pipeline {
     }
   }
 }
-
-    stage('Destroy ubuntu virtual machine') {
-      when {
-        expression { return params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean-up' }
-      }  
-      steps {
-        script {
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
-          component = params.os_type
-          sh "echo '${component}'"
-          sh "./run.sh '${component}'"
-
-        }
+  stage('Destroy virtual machine') {
+    steps {
+     script {
+      if (params.os_type == 'ubuntu_clean-up' && params.deployment == 'clean-up') {
+        currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+        component = params.os_type
+        sh "echo '${component}'"
+        sh "./run.sh '${component}'"
+      }
+      else if (params.os_type == 'redhat_clean-up' && params.deployment == 'clean-up') {
+        currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+        component = params.os_type
+        sh "echo '${component}'"
+        sh "./run.sh '${component}'"
       }
     }
-    stage('Destroy redhat virtual machine') {
-      when {
-        expression { return params.os_type == 'redhat_clean-up' && params.deployment == 'clean-up' }
-      }  
-      steps {
-        script {
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
-          component = params.os_type
-          sh "echo '${component}'"
-          sh "./run.sh '${component}'"
-
-        }
-      }
-    }
-    stage('reset virtual machine') {
-      when {
-        expression { return params.deployment == 'reset-vm'  }
-      }  
-      steps {
-        script {
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
-          component = params.os_type
-          sh "echo '${component}'"
-          sh "./run.sh '${component}'"
-
-        }
-      }
-    }
-
   }
+}
+  stage('Reset virtual machine') {
+    steps {
+     script {
+      if (params.deployment == 'reset-vm') {
+        currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+        component = params.os_type
+        sh "echo '${component}'"
+        sh "./run.sh '${component}'"
+      }
+    }
+  }
+ }
+}
   post {
     success {
       script {
