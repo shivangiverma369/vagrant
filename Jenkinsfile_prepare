@@ -59,28 +59,24 @@ pipeline {
         script {commitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')}
       }
     }
-    stage('Deploy ubuntu virtual machine') {
-      if(params.os_type == 'ubuntu' && params.deployment == 'deploy-vm') 
-       steps {
-        script {
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
-          component = params.os_type
-          sh "echo '${component}'"
-          sh "./run.sh '${component}'"
-
-        }
+   stage('Deploy virtual machine') {
+    steps {
+     script {
+      if (params.os_type == 'ubuntu' && params.deployment == 'deploy-vm') {
+        currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+        component = params.os_type
+        sh "echo '${component}'"
+        sh "./run.sh '${component}'"
       }
-      else if(params.os_type == 'redhat' && params.deployment == 'deploy-vm')
-       steps {
-        script {
-          currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
-          component = params.os_type
-          sh "echo '${component}'"
-          sh "./run.sh '${component}'"
-
-        }
+      else if (params.os_type == 'redhat' && params.deployment == 'deploy-vm') {
+        currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
+        component = params.os_type
+        sh "echo '${component}'"
+        sh "./run.sh '${component}'"
       }
     }
+  }
+}
 
     stage('Destroy ubuntu virtual machine') {
       when {
