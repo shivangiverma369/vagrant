@@ -60,9 +60,9 @@ pipeline {
       }
     }
     stage('Deploy ubuntu virtual machine') {
-      when {
+      if(
         expression { return params.os_type == 'ubuntu' && params.deployment == 'deploy-vm' }
-      }  
+      ) 
       steps {
         script {
           currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
@@ -72,13 +72,10 @@ pipeline {
 
         }
       }
-    }
-
-    stage('Deploy redhat virtual machine') {
-      when {
-        expression { return params.os_type == 'redhat' && params.deployment == 'deploy-vm' }
-      }  
-      steps {
+      else if(
+           expression { return params.os_type == 'redhat' && params.deployment == 'deploy-vm' }
+      )
+       steps {
         script {
           currentBuild.displayName = env.BUILD_NUMBER + "-" + params.os_type
           component = params.os_type
